@@ -15,6 +15,9 @@ export default tseslint.config(
       "**/coverage/**",
       "**/next-env.d.ts",
       "**/.venv/**",
+      // Generated code (pnpm generate)
+      "packages/contracts/src/gen/**",
+      "apps/staff/gql/**",
       "assets/**",
       "public/**",
     ],

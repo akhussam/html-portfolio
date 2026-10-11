@@ -11,6 +11,8 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
+    "@connectrpc/connect": "2.2.0",
+    "@connectrpc/connect-node": "2.2.0",
     "@nestjs/common": "12.1.2",
     "@nestjs/core": "12.1.2",
     "@nestjs/platform-express": "12.1.2",
@@ -20,5 +22,6 @@
   },
   "devDependencies": {
     "@nestjs/testing": "12.1.2"
-  }
+  },
+  "type": "module"
 }

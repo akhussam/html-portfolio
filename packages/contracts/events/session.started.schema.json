@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.alpha-like.school/events/session.started.schema.json",
+  "title": "SessionStartedEvent",
+  "description": "A student started a practice session (step 1.5).",
+  "type": "object",
+  "required": ["id", "type", "version", "occurredAt", "tenantId", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "type": { "const": "session.started" },
+    "version": { "const": 1 },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "tenantId": { "type": "string", "format": "uuid" },
+    "payload": {
+      "type": "object",
+      "required": ["sessionId", "studentId"],
+      "additionalProperties": false,
+      "properties": {
+        "sessionId": { "type": "string", "format": "uuid" },
+        "studentId": { "type": "string", "format": "uuid" }
+      }
+    }
+  }
+}

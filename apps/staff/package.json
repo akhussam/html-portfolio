@@ -9,19 +9,25 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --passWithNoTests",
+    "generate": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@graphql-typed-document-node/core": "3.2.0",
+    "@platform/contracts": "workspace:*",
     "@platform/panel-admin": "workspace:*",
     "@platform/panel-author": "workspace:*",
     "@platform/panel-guide": "workspace:*",
     "@platform/panel-ops": "workspace:*",
     "@platform/ui": "workspace:*",
+    "graphql": "16.14.2",
     "next": "16.4.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "7.4.6",
+    "@graphql-codegen/client-preset": "6.2.3",
     "@types/node": "22.20.5",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7"

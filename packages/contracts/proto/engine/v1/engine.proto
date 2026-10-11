@@ -1,0 +1,80 @@
+// Learning engine contract (ADR-004). Permanent interface for the BKT → fitted BKT → DKT seam
+// (BUILD_PLAN.md §3). Changes must be additive: never renumber or reuse a field.
+// IDs are pseudonymous (ADR-002); every request carries tenant_id (ADR-006).
+syntax = "proto3";
+
+package engine.v1;
+
+service LearningEngineService {
+  // Update a student's mastery estimate for a skill after a scored response.
+  rpc UpdateMastery(UpdateMasteryRequest) returns (UpdateMasteryResponse);
+  // Pick the next item to aim for the target success rate (~75%), falling back to
+  // prerequisite skills when the student is stuck.
+  rpc RecommendNext(RecommendNextRequest) returns (RecommendNextResponse);
+  // Build today's plan: the daily goal and an ordered skill queue.
+  rpc PlanDay(PlanDayRequest) returns (PlanDayResponse);
+}
+
+message UpdateMasteryRequest {
+  string tenant_id = 1;
+  string student_id = 2;
+  string skill_id = 3;
+  string item_id = 4;
+  bool correct = 5;
+  uint32 hints_used = 6;
+}
+
+message UpdateMasteryResponse {
+  string skill_id = 1;
+  // Probability the student has mastered the skill, 0..1.
+  double p_mastery = 2;
+}
+
+// An item the engine may choose from. Content owns items (ADR-001), so the
+// caller passes the candidates; the engine owns mastery state.
+message CandidateItem {
+  string item_id = 1;
+  string skill_id = 2;
+}
+
+message RecommendNextRequest {
+  string tenant_id = 1;
+  string student_id = 2;
+  // The skill the student is working on.
+  string skill_id = 3;
+  repeated CandidateItem candidates = 4;
+  // Prerequisites of skill_id, for the fallback.
+  repeated string prerequisite_skill_ids = 5;
+}
+
+enum RecommendReason {
+  RECOMMEND_REASON_UNSPECIFIED = 0;
+  RECOMMEND_REASON_PRACTICE = 1;
+  RECOMMEND_REASON_PREREQUISITE_FALLBACK = 2;
+  RECOMMEND_REASON_READY_FOR_QUIZ = 3;
+}
+
+message RecommendNextResponse {
+  // Empty when reason is READY_FOR_QUIZ.
+  string item_id = 1;
+  string skill_id = 2;
+  RecommendReason reason = 3;
+}
+
+message PlanDayRequest {
+  string tenant_id = 1;
+  string student_id = 2;
+  // Local calendar date, YYYY-MM-DD.
+  string date = 3;
+}
+
+message PlannedSkill {
+  string skill_id = 1;
+}
+
+message PlanDayResponse {
+  // Daily goal in productive minutes (plan step 2.3, e.g. 30).
+  uint32 goal_minutes = 1;
+  // Ordered: work on the first skill first.
+  repeated PlannedSkill skills = 2;
+}

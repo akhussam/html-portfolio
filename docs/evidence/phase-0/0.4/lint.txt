@@ -1,0 +1,145 @@
+$ pnpm turbo run lint --force   (includes buf lint for engine.proto)
+
+   • turbo 2.11.7
+   • Packages in scope: @platform/api, @platform/contracts, @platform/learning-engine, @platform/panel-admin, @platform/panel-author, @platform/panel-guide, @platform/panel-ops, @platform/staff, @platform/student, @platform/ui
+   • Running lint in 10 packages
+   • Remote caching disabled
+
+@platform/panel-guide:lint: cache bypass, force executing 9964eefc9929659d
+@platform/ui:lint: cache bypass, force executing 88b0f38e740a387d
+@platform/api:lint: cache bypass, force executing 8cb4d6570c7fdd9b
+@platform/student:lint: cache bypass, force executing e9ac256c4412841d
+@platform/panel-ops:lint: cache bypass, force executing a3e02b64ded1df87
+@platform/panel-admin:lint: cache bypass, force executing 0954298efa2801c4
+@platform/learning-engine:lint: cache bypass, force executing f49b7c5e0aeca8cf
+@platform/panel-author:lint: cache bypass, force executing bf02c2a298d66bc6
+@platform/contracts:lint: cache bypass, force executing c00cd31c0023ee3f
+@platform/staff:lint: cache bypass, force executing e63f2289afa8f455
+@platform/contracts:lint: 
+@platform/contracts:lint: > @platform/contracts@0.0.0 lint /home/user/html-portfolio/packages/contracts
+@platform/contracts:lint: > eslint . && buf lint
+@platform/contracts:lint: 
+@platform/panel-guide:lint: 
+@platform/panel-guide:lint: > @platform/panel-guide@0.0.0 lint /home/user/html-portfolio/packages/panel-guide
+@platform/panel-guide:lint: > eslint .
+@platform/panel-guide:lint: 
+@platform/learning-engine:lint: 
+@platform/learning-engine:lint: > @platform/learning-engine@0.0.0 lint /home/user/html-portfolio/services/learning-engine
+@platform/learning-engine:lint: > uv run --frozen ruff check . && uv run --frozen ruff format --check .
+@platform/learning-engine:lint: 
+@platform/panel-author:lint: 
+@platform/panel-author:lint: > @platform/panel-author@0.0.0 lint /home/user/html-portfolio/packages/panel-author
+@platform/panel-author:lint: > eslint .
+@platform/panel-author:lint: 
+@platform/panel-admin:lint: 
+@platform/panel-admin:lint: > @platform/panel-admin@0.0.0 lint /home/user/html-portfolio/packages/panel-admin
+@platform/panel-admin:lint: > eslint .
+@platform/panel-admin:lint: 
+@platform/learning-engine:lint: warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+@platform/staff:lint: 
+@platform/staff:lint: > @platform/staff@0.0.0 lint /home/user/html-portfolio/apps/staff
+@platform/staff:lint: > eslint .
+@platform/staff:lint: 
+@platform/learning-engine:lint: All checks passed!
+@platform/student:lint: 
+@platform/student:lint: > @platform/student@0.0.0 lint /home/user/html-portfolio/apps/student
+@platform/student:lint: > eslint .
+@platform/student:lint: 
+@platform/learning-engine:lint: warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+@platform/api:lint: 
+@platform/api:lint: > @platform/api@0.0.0 lint /home/user/html-portfolio/services/api
+@platform/api:lint: > eslint .
+@platform/api:lint: 
+@platform/learning-engine:lint: 5 files already formatted
+@platform/panel-ops:lint: 
+@platform/panel-ops:lint: > @platform/panel-ops@0.0.0 lint /home/user/html-portfolio/packages/panel-ops
+@platform/panel-ops:lint: > eslint .
+@platform/panel-ops:lint: 
+@platform/ui:lint: 
+@platform/ui:lint: > @platform/ui@0.0.0 lint /home/user/html-portfolio/packages/ui
+@platform/ui:lint: > eslint .
+@platform/ui:lint: 
+
+ Tasks:    10 successful, 10 total
+Cached:    0 cached, 10 total
+  Time:    5.009s 
+
+
+$ pnpm turbo run typecheck --force
+
+   • turbo 2.11.7
+   • Packages in scope: @platform/api, @platform/contracts, @platform/learning-engine, @platform/panel-admin, @platform/panel-author, @platform/panel-guide, @platform/panel-ops, @platform/staff, @platform/student, @platform/ui
+   • Running typecheck in 10 packages
+   • Remote caching disabled
+
+@platform/learning-engine:typecheck: cache bypass, force executing 3f6323fbb910c762
+@platform/contracts:build: cache bypass, force executing d51e7a0e6136e70d
+@platform/ui:typecheck: cache bypass, force executing f2c101195aa859a6
+@platform/contracts:typecheck: cache bypass, force executing e596f81c533f171a
+@platform/panel-admin:typecheck: cache bypass, force executing 66711f0e4b93d8d0
+@platform/panel-ops:typecheck: cache bypass, force executing f63e5ad7d64dc86a
+@platform/panel-guide:typecheck: cache bypass, force executing c55ed10ffb97f663
+@platform/panel-author:typecheck: cache bypass, force executing 5d30cc018048f7a5
+@platform/learning-engine:typecheck: 
+@platform/learning-engine:typecheck: > @platform/learning-engine@0.0.0 typecheck /home/user/html-portfolio/services/learning-engine
+@platform/learning-engine:typecheck: > uv run --frozen mypy src tests
+@platform/learning-engine:typecheck: 
+@platform/learning-engine:typecheck: warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+@platform/ui:typecheck: 
+@platform/ui:typecheck: > @platform/ui@0.0.0 typecheck /home/user/html-portfolio/packages/ui
+@platform/ui:typecheck: > tsc -p tsconfig.json
+@platform/ui:typecheck: 
+@platform/panel-guide:typecheck: 
+@platform/panel-guide:typecheck: > @platform/panel-guide@0.0.0 typecheck /home/user/html-portfolio/packages/panel-guide
+@platform/panel-guide:typecheck: > tsc -p tsconfig.json
+@platform/panel-guide:typecheck: 
+@platform/contracts:build: 
+@platform/contracts:build: > @platform/contracts@0.0.0 build /home/user/html-portfolio/packages/contracts
+@platform/contracts:build: > tsc -p tsconfig.build.json
+@platform/contracts:build: 
+@platform/panel-author:typecheck: 
+@platform/panel-author:typecheck: > @platform/panel-author@0.0.0 typecheck /home/user/html-portfolio/packages/panel-author
+@platform/panel-author:typecheck: > tsc -p tsconfig.json
+@platform/panel-author:typecheck: 
+@platform/panel-admin:typecheck: 
+@platform/panel-admin:typecheck: > @platform/panel-admin@0.0.0 typecheck /home/user/html-portfolio/packages/panel-admin
+@platform/panel-admin:typecheck: > tsc -p tsconfig.json
+@platform/panel-admin:typecheck: 
+@platform/panel-ops:typecheck: 
+@platform/panel-ops:typecheck: > @platform/panel-ops@0.0.0 typecheck /home/user/html-portfolio/packages/panel-ops
+@platform/panel-ops:typecheck: > tsc -p tsconfig.json
+@platform/panel-ops:typecheck: 
+@platform/contracts:typecheck: 
+@platform/contracts:typecheck: > @platform/contracts@0.0.0 typecheck /home/user/html-portfolio/packages/contracts
+@platform/contracts:typecheck: > tsc -p tsconfig.json
+@platform/contracts:typecheck: 
+@platform/learning-engine:typecheck: Success: no issues found in 5 source files
+@platform/student:typecheck: cache bypass, force executing f610e0289577746f
+@platform/api:typecheck: cache bypass, force executing 47bf8956187143a1
+@platform/staff:typecheck: cache bypass, force executing 0b88790550c9ee96
+@platform/student:typecheck: 
+@platform/student:typecheck: > @platform/student@0.0.0 typecheck /home/user/html-portfolio/apps/student
+@platform/student:typecheck: > tsc -p tsconfig.json
+@platform/student:typecheck: 
+@platform/api:typecheck: 
+@platform/api:typecheck: > @platform/api@0.0.0 typecheck /home/user/html-portfolio/services/api
+@platform/api:typecheck: > tsc -p tsconfig.json
+@platform/api:typecheck: 
+@platform/staff:typecheck: 
+@platform/staff:typecheck: > @platform/staff@0.0.0 typecheck /home/user/html-portfolio/apps/staff
+@platform/staff:typecheck: > tsc -p tsconfig.json
+@platform/staff:typecheck: 
+
+ Tasks:    11 successful, 11 total
+Cached:    0 cached, 11 total
+  Time:    8.851s 
+
+
+$ pnpm lint:boundaries
+
+> alpha-like-school-platform@ lint:boundaries /home/user/html-portfolio
+> depcruise apps services packages --config .dependency-cruiser.cjs
+
+
+✔ no dependency violations found (68 modules, 69 dependencies cruised)
+

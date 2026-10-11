@@ -6,6 +6,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "generate": "pnpm --filter @platform/contracts generate && pnpm --filter @platform/staff generate && services/learning-engine/generate.sh",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",

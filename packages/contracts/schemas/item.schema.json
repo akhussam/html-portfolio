@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.alpha-like.school/schemas/item.schema.json",
+  "title": "Item",
+  "description": "A practice or quiz item (ADR-007). Owned by the content module; contains the answer, so it never goes to the student app as-is (the lesson-player API sends PresentedItem).",
+  "type": "object",
+  "required": ["schemaVersion", "id", "skillId", "reviewStatus", "prompt", "hints", "body"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "minLength": 1 },
+    "skillId": { "type": "string", "minLength": 1 },
+    "reviewStatus": { "enum": ["draft", "in_review", "approved"] },
+    "prompt": { "type": "string", "minLength": 1 },
+    "hints": {
+      "description": "Two authored hints, served in order by POST /help/{itemId}.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "body": {
+      "oneOf": [
+        { "$ref": "#/$defs/MultipleChoice" },
+        { "$ref": "#/$defs/Numeric" },
+        { "$ref": "#/$defs/Fraction" }
+      ]
+    }
+  },
+  "$defs": {
+    "MultipleChoice": {
+      "type": "object",
+      "required": ["type", "choices", "correctChoiceId"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "multiple_choice" },
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["id", "text"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "text": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "correctChoiceId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "Numeric": {
+      "type": "object",
+      "required": ["type", "answer"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "numeric" },
+        "answer": { "type": "number" }
+      }
+    },
+    "Fraction": {
+      "type": "object",
+      "required": ["type", "numerator", "denominator", "acceptEquivalent"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "fraction" },
+        "numerator": { "type": "integer" },
+        "denominator": { "type": "integer", "minimum": 1 },
+        "acceptEquivalent": {
+          "description": "If true, any equivalent fraction is correct (e.g. 2/4 for 1/2).",
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

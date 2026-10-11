@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.alpha-like.school/events/skill.mastered.schema.json",
+  "title": "SkillMasteredEvent",
+  "description": "A student passed a skill's mastery quiz at the 90% gate (step 1.3).",
+  "type": "object",
+  "required": ["id", "type", "version", "occurredAt", "tenantId", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "type": { "const": "skill.mastered" },
+    "version": { "const": 1 },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "tenantId": { "type": "string", "format": "uuid" },
+    "payload": {
+      "type": "object",
+      "required": ["studentId", "skillId", "quizId", "scorePct"],
+      "additionalProperties": false,
+      "properties": {
+        "studentId": { "type": "string", "format": "uuid" },
+        "skillId": { "type": "string", "minLength": 1 },
+        "quizId": { "type": "string", "format": "uuid" },
+        "scorePct": { "type": "number", "minimum": 90, "maximum": 100 }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.alpha-like.school/events/envelope.schema.json",
+  "title": "EventEnvelope",
+  "description": "Fields every event carries (ADR-003). Subject IDs are pseudonymous (ADR-002).",
+  "type": "object",
+  "required": ["id", "type", "version", "occurredAt", "tenantId", "payload"],
+  "properties": {
+    "id": { "description": "Event ID; consumers drop duplicates by it.", "type": "string", "format": "uuid" },
+    "type": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "tenantId": { "type": "string", "format": "uuid" },
+    "payload": { "type": "object" }
+  }
+}

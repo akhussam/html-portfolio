@@ -1,0 +1,124 @@
+# GraphQL schema for the staff panels (apps/staff: /guide, /admin, /ops, /parent).
+# Served by services/api. Tenant and caller come from the JWT (ADR-006); authorization
+# goes through authz.check (seam register). Person IDs are pseudonymous (ADR-002);
+# names are resolved from the identity module at display time.
+
+scalar DateTime
+
+type Query {
+  "Guide: the live room grid."
+  room(roomId: ID!): Room
+  "Guide: one student's skills, time and flags (step 2.6)."
+  studentDetail(studentId: ID!): StudentDetail
+  "Parent page + weekly email (parent seam; Expo parent screens later use the same query)."
+  weeklyReport(studentId: ID!): WeeklyReport
+  "Ops: look up a user. Every call is written to the audit log."
+  userLookup(query: String!): [UserSummary!]!
+  "Ops: feature flags (every pilot change sits behind one; ADR-008)."
+  featureFlags: [FeatureFlag!]!
+}
+
+type Mutation {
+  "Guide: send a nudge to a student."
+  nudge(studentId: ID!, message: String!): Boolean!
+  "Guide: override a placement result for one skill."
+  overridePlacement(studentId: ID!, skillId: ID!, mastered: Boolean!): Boolean!
+  "Admin: CSV roster import (rostering seam: roster.importEnrollments)."
+  importEnrollments(rows: [EnrollmentRowInput!]!): ImportResult!
+  "Admin: invite a parent by email."
+  inviteParent(studentId: ID!, email: String!): Boolean!
+  "Ops: switch a feature flag."
+  setFeatureFlag(key: String!, enabled: Boolean!): FeatureFlag!
+  "Ops: re-publish outbox events from a given event ID (ADR-003)."
+  replayOutbox(fromEventId: ID!): Int!
+}
+
+type Subscription {
+  "Guide: live status changes in a room (WebSocket gateway seam)."
+  roomUpdates(roomId: ID!): RoomUpdate!
+}
+
+enum StudentStatus {
+  WORKING
+  IDLE
+  OFF_TASK
+  HAND_RAISED
+  OFFLINE
+}
+
+type Room {
+  id: ID!
+  students: [RoomStudent!]!
+}
+
+type RoomStudent {
+  studentId: ID!
+  displayName: String!
+  status: StudentStatus!
+  currentSkillId: ID
+  productiveMinutesToday: Int!
+}
+
+type RoomUpdate {
+  roomId: ID!
+  student: RoomStudent!
+  at: DateTime!
+}
+
+type StudentDetail {
+  studentId: ID!
+  displayName: String!
+  skills: [SkillProgress!]!
+  productiveMinutesToday: Int!
+}
+
+type SkillProgress {
+  skillId: ID!
+  pMastery: Float!
+  mastered: Boolean!
+}
+
+type WeeklyReport {
+  studentId: ID!
+  weekStart: DateTime!
+  productiveMinutes: Int!
+  skillsMastered: Int!
+}
+
+type UserSummary {
+  userId: ID!
+  displayName: String!
+  role: Role!
+}
+
+enum Role {
+  STUDENT
+  GUIDE
+  PARENT
+  ADMIN
+  AUTHOR
+  OPS
+}
+
+type FeatureFlag {
+  key: String!
+  enabled: Boolean!
+}
+
+input EnrollmentRowInput {
+  studentGivenName: String!
+  studentFamilyName: String!
+  grade: Int!
+  cohort: String!
+}
+
+type ImportResult {
+  created: Int!
+  skipped: Int!
+  errors: [ImportError!]!
+}
+
+type ImportError {
+  row: Int!
+  message: String!
+}

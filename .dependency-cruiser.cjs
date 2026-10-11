@@ -102,6 +102,7 @@ module.exports = {
     tsConfig: { fileName: "tsconfig.base.json" },
     enhancedResolveOptions: {
       exportsFields: ["exports"],
+      mainFields: ["module", "main", "types", "typings"],
       conditionNames: ["import", "require", "node", "default", "types"],
       extensions: [".ts", ".tsx", ".js", ".mjs", ".cjs", ".json"],
     },
