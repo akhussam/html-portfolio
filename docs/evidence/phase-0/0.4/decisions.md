@@ -14,3 +14,6 @@ ADR-002, 003, 004, 006 and 007 are applied here; no new ADR. The choices below w
 | C8 | GraphQL `overridePlacement` sets mastered true/false per skill | Plan 2.6 names the action only |
 | C9 | The contracts package now builds to `dist/` (ESM), and the API switched to ESM | Node services can't run TypeScript source from a package |
 | C10 | Code generation tools:<br>• buf + protoc-gen-es (TypeScript)<br>• grpcio-tools + protoc-gen-connect-python (Python)<br>• openapi-typescript + openapi-fetch<br>• graphql-codegen client preset<br>• json-schema-to-typescript<br>Generated code is committed and diff-checked in CI | Builds don't need generators at runtime, and reviews see generated changes |
+
+## Approval
+- 2026-10-11: @Hussam approved the contracts and choices C1–C10 in writing in the session ("apporved"). Step 0.4 is closed.
