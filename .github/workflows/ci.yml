@@ -48,3 +48,6 @@ jobs:
 
       - name: Boundary rules block violations
         run: pnpm test:boundaries
+
+      - name: ADRs are consistent
+        run: pnpm test:adr

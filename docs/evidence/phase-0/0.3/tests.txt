@@ -1,0 +1,143 @@
+$ pnpm test:adr
+
+> alpha-like-school-platform@ test:adr /home/user/html-portfolio
+> node --test tools/adr/adr.test.mjs
+
+TAP version 13
+# Subtest: ADRs
+    # Subtest: are numbered sequentially from 001
+    ok 1 - are numbered sequentially from 001
+      ---
+      duration_ms: 1.926951
+      type: 'test'
+      ...
+    # Subtest: 001-modular-monolith.md has a matching title, status and required sections
+    ok 2 - 001-modular-monolith.md has a matching title, status and required sections
+      ---
+      duration_ms: 0.615689
+      type: 'test'
+      ...
+    # Subtest: 001-modular-monolith.md is listed in the index with its status
+    ok 3 - 001-modular-monolith.md is listed in the index with its status
+      ---
+      duration_ms: 0.258447
+      type: 'test'
+      ...
+    # Subtest: 002-pseudonymous-ids.md has a matching title, status and required sections
+    ok 4 - 002-pseudonymous-ids.md has a matching title, status and required sections
+      ---
+      duration_ms: 0.173796
+      type: 'test'
+      ...
+    # Subtest: 002-pseudonymous-ids.md is listed in the index with its status
+    ok 5 - 002-pseudonymous-ids.md is listed in the index with its status
+      ---
+      duration_ms: 0.138107
+      type: 'test'
+      ...
+    # Subtest: 003-outbox-events.md has a matching title, status and required sections
+    ok 6 - 003-outbox-events.md has a matching title, status and required sections
+      ---
+      duration_ms: 0.134526
+      type: 'test'
+      ...
+    # Subtest: 003-outbox-events.md is listed in the index with its status
+    ok 7 - 003-outbox-events.md is listed in the index with its status
+      ---
+      duration_ms: 0.114489
+      type: 'test'
+      ...
+    # Subtest: 004-connect-rpc.md has a matching title, status and required sections
+    ok 8 - 004-connect-rpc.md has a matching title, status and required sections
+      ---
+      duration_ms: 0.213287
+      type: 'test'
+      ...
+    # Subtest: 004-connect-rpc.md is listed in the index with its status
+    ok 9 - 004-connect-rpc.md is listed in the index with its status
+      ---
+      duration_ms: 0.2551
+      type: 'test'
+      ...
+    # Subtest: 005-seam-policy.md has a matching title, status and required sections
+    ok 10 - 005-seam-policy.md has a matching title, status and required sections
+      ---
+      duration_ms: 1.30331
+      type: 'test'
+      ...
+    # Subtest: 005-seam-policy.md is listed in the index with its status
+    ok 11 - 005-seam-policy.md is listed in the index with its status
+      ---
+      duration_ms: 0.151983
+      type: 'test'
+      ...
+    # Subtest: 006-tenant-id-everywhere.md has a matching title, status and required sections
+    ok 12 - 006-tenant-id-everywhere.md has a matching title, status and required sections
+      ---
+      duration_ms: 0.120596
+      type: 'test'
+      ...
+    # Subtest: 006-tenant-id-everywhere.md is listed in the index with its status
+    ok 13 - 006-tenant-id-everywhere.md is listed in the index with its status
+      ---
+      duration_ms: 0.132261
+      type: 'test'
+      ...
+    # Subtest: 007-item-json-schema.md has a matching title, status and required sections
+    ok 14 - 007-item-json-schema.md has a matching title, status and required sections
+      ---
+      duration_ms: 0.212162
+      type: 'test'
+      ...
+    # Subtest: 007-item-json-schema.md is listed in the index with its status
+    ok 15 - 007-item-json-schema.md is listed in the index with its status
+      ---
+      duration_ms: 0.18079
+      type: 'test'
+      ...
+    # Subtest: 008-no-school-hours-deploys.md has a matching title, status and required sections
+    ok 16 - 008-no-school-hours-deploys.md has a matching title, status and required sections
+      ---
+      duration_ms: 0.152868
+      type: 'test'
+      ...
+    # Subtest: 008-no-school-hours-deploys.md is listed in the index with its status
+    ok 17 - 008-no-school-hours-deploys.md is listed in the index with its status
+      ---
+      duration_ms: 1.41398
+      type: 'test'
+      ...
+    # Subtest: 009-build-tooling.md has a matching title, status and required sections
+    ok 18 - 009-build-tooling.md has a matching title, status and required sections
+      ---
+      duration_ms: 0.196377
+      type: 'test'
+      ...
+    # Subtest: 009-build-tooling.md is listed in the index with its status
+    ok 19 - 009-build-tooling.md is listed in the index with its status
+      ---
+      duration_ms: 0.119833
+      type: 'test'
+      ...
+    1..19
+ok 1 - ADRs
+  ---
+  duration_ms: 10.540047
+  type: 'suite'
+  ...
+1..1
+# tests 19
+# suites 1
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 133.570109
+
+# Negative check (temporary breakage, then restored):
+#   004 "## Consequences" renamed + empty 011-gap.md added  →  4 failures:
+#   not ok - are numbered sequentially from 001
+#   not ok - 004-connect-rpc.md has a matching title, status and required sections
+#   not ok - 011-gap.md has a matching title, status and required sections
+#   not ok - 011-gap.md is listed in the index with its status

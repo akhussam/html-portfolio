@@ -12,7 +12,8 @@
     "test": "turbo run test",
     "lint:boundaries": "depcruise apps services packages --config .dependency-cruiser.cjs",
     "test:boundaries": "node --test tools/boundaries/boundaries.test.mjs",
-    "check": "turbo run lint typecheck test build && pnpm lint:boundaries && pnpm test:boundaries"
+    "check": "turbo run lint typecheck test build && pnpm lint:boundaries && pnpm test:boundaries && pnpm test:adr",
+    "test:adr": "node --test tools/adr/adr.test.mjs"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
