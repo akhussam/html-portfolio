@@ -1,0 +1,24 @@
+GitHub Actions — workflow "CI", run for commit 9d640e1 (push)
+https://github.com/akhussam/html-portfolio/actions/runs/38143648034   Conclusion: success
+
+Service container: postgres:17-alpine (empty database "platform")
+Job env: DATABASE_URL=postgres://postgres:postgres@localhost:5432/platform
+
+   2 Initialize containers                        success   (Postgres 17 started, health check passed)
+   7 Install                                      success
+   8 Generated code is up to date                 success   (includes drizzle-kit generate: no missing migration)
+   9 Migrate a clean database (pnpm db:migrate)   success   <- step 0.5 "Done when"
+                                                            (then \dn and \dt *.* list the created schemas and tables;
+                                                             full output in the run log on GitHub)
+  10 Lint                                         success
+  11 Typecheck                                    success
+  12 Test                                         success   (src/db tests ran on the real server: the test helper
+                                                             throws in CI if DATABASE_URL is missing, so they
+                                                             cannot fall back to PGlite)
+  13 Build                                        success
+  14 Boundary lint                                success
+  15 Boundary rules block violations              success
+  16 ADRs are consistent                          success
+
+Note: the raw log could not be copied into this file from the build session (the log storage
+host is blocked by that session's network policy); the run link above holds it.
