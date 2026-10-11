@@ -15,6 +15,7 @@ Each ADR has the sections **Status**, **Context**, **Decision**, **Consequences*
 | [007](007-item-json-schema.md) | Item JSON schema | Accepted |
 | [008](008-no-school-hours-deploys.md) | No school-hours deploys | Accepted |
 | [009](009-build-tooling.md) | Build tooling and boundary enforcement | Accepted |
+| [010](010-data-access-and-migrations.md) | Data access and migrations | Accepted |
 
 ## Template
 ```markdown

@@ -2,7 +2,9 @@
   "$schema": "https://turborepo.com/schema.json",
   "agentGuidance": false,
   "globalPassThroughEnv": [
-    "UV_*"
+    "UV_*",
+    "DATABASE_URL",
+    "CI"
   ],
   "tasks": {
     "build": {

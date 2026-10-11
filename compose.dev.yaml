@@ -1,0 +1,13 @@
+# Local development database: same Postgres major version as CI and the RDS target (ADR-010).
+#   docker compose -f compose.dev.yaml up -d
+#   export DATABASE_URL=postgres://postgres:postgres@localhost:5432/platform
+#   pnpm db:migrate
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: platform
+    ports:
+      - "5432:5432"
