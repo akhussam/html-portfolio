@@ -1,0 +1,112 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, typecheck, test, build, boundaries
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        # Same major version as the RDS target (ADR-010).
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: platform
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/platform
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Generated code is up to date
+        run: |
+          pnpm generate
+          changes="$(git status --porcelain)"
+          if [ -n "$changes" ]; then echo "Run pnpm generate and commit:"; echo "$changes"; exit 1; fi
+
+      - name: Migrate a clean database (pnpm db:migrate)
+        run: |
+          pnpm db:migrate
+          psql "$DATABASE_URL" -c '\dn' -c '\dt *.*' | grep -vE 'pg_catalog|information_schema'
+
+      - name: Lint
+        run: pnpm turbo run lint
+
+      - name: Typecheck
+        run: pnpm turbo run typecheck
+
+      - name: Test
+        run: pnpm turbo run test
+
+      - name: Build
+        run: pnpm turbo run build
+
+      - name: Boundary lint
+        run: pnpm lint:boundaries
+
+      - name: Boundary rules block violations
+        run: pnpm test:boundaries
+
+      - name: ADRs are consistent
+        run: pnpm test:adr
+
+  stack:
+    name: Docker images + Compose smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Validate the Compose file
+        run: docker compose -f infra/compose/compose.yaml --env-file infra/compose/env/ci.env --profile tunnel config -q
+
+      - name: Build all images, start the stack from nothing, check every service
+        run: infra/compose/smoke-test.sh
+
+  terraform:
+    name: Terraform (OCI) validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: infra/terraform/oci
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - run: terraform fmt -check -recursive
+
+      - run: terraform init -backend=false -input=false
+
+      - run: terraform validate

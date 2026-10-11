@@ -1,0 +1,26 @@
+=== packages/contracts: vitest run --coverage (generated code excluded)
+Statements   : 100% ( 1/1 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 0/0 )
+Lines        : 100% ( 1/1 )
+=== apps/student: vitest run --coverage (generated code excluded)
+Statements   : 100% ( 7/7 )
+Branches     : 100% ( 2/2 )
+Functions    : 100% ( 2/2 )
+Lines        : 100% ( 6/6 )
+=== apps/staff: vitest run --coverage (generated code excluded)
+Statements   : 100% ( 4/4 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 0/0 )
+Lines        : 100% ( 4/4 )
+=== services/api: vitest run --coverage (generated code excluded)
+Statements   : 100% ( 22/22 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 2/2 )
+Lines        : 100% ( 22/22 )
+=== services/learning-engine: pytest --cov=learning_engine (generated src/engine excluded)
+Name                              Stmts   Miss  Cover
+src/learning_engine/__init__.py       0      0   100%
+src/learning_engine/main.py           9      0   100%
+src/learning_engine/service.py        3      0   100%
+TOTAL                                12      0   100%

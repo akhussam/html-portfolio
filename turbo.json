@@ -1,0 +1,41 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "agentGuidance": false,
+  "globalPassThroughEnv": [
+    "UV_*",
+    "DATABASE_URL",
+    "CI"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**"
+      ]
+    },
+    "lint": {},
+    "typecheck": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "coverage/**"
+      ]
+    },
+    "@platform/staff#typecheck": {
+      "dependsOn": [
+        "^build",
+        "@platform/staff#build"
+      ]
+    }
+  }
+}

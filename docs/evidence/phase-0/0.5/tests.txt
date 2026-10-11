@@ -1,0 +1,33 @@
+$ (services/api) pnpm exec vitest run src/db --reporter=verbose
+  Local run: no DATABASE_URL, so the PGlite fallback runs (Postgres 17 compiled to WebAssembly).
+  CI runs the same files on a real Postgres 17 server; see ci.txt.
+
+ ✓ src/db/migrations.test.ts > migrations on a clean database > create one schema per module plus outbox and audit (ADR-001)
+ ✓ src/db/migrations.test.ts > migrations on a clean database > create the outbox, audit log and consent ledger tables
+ ✓ src/db/migrations.test.ts > migrations on a clean database > give every table a NOT NULL uuid tenant_id (ADR-006)
+ ✓ src/db/migrations.test.ts > migrations on a clean database > are idempotent: running them again changes nothing
+ ✓ src/db/migrations.test.ts > audit.log is append-only (ADR-010) > accepts inserts
+ ✓ src/db/migrations.test.ts > audit.log is append-only (ADR-010) > rejects update
+ ✓ src/db/migrations.test.ts > audit.log is append-only (ADR-010) > rejects delete
+ ✓ src/db/migrations.test.ts > audit.log is append-only (ADR-010) > rejects truncate
+ ✓ src/db/migrations.test.ts > identity.consent_ledger is append-only (ADR-010) > records a withdrawal as a new row, not an edit
+ ✓ src/db/migrations.test.ts > identity.consent_ledger is append-only (ADR-010) > rejects an unknown action
+ ✓ src/db/migrations.test.ts > identity.consent_ledger is append-only (ADR-010) > rejects update
+ ✓ src/db/migrations.test.ts > identity.consent_ledger is append-only (ADR-010) > rejects delete
+ ✓ src/db/migrations.test.ts > identity.consent_ledger is append-only (ADR-010) > rejects truncate
+ ✓ src/db/migrations.test.ts > outbox.events (ADR-003) > orders events by an increasing seq
+ ✓ src/db/migrations.test.ts > outbox.events (ADR-003) > rejects a second event with the same id
+ ✓ src/db/migrations.test.ts > outbox.events (ADR-003) > starts events unpublished
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+
+$ (services/api) pnpm exec vitest run
+  src/db/tables.test.ts adds 8 checks on the Drizzle table definitions: the 3 required tables,
+  each table in its owner's schema, a NOT NULL uuid tenant_id on each, no foreign keys.
+      Tests  28 passed (28)   (16 migration + 8 table definition + 3 engine interop + 1 AppModule)
+
+$ pnpm check   (lint, typecheck, test, build for every workspace + boundaries + ADR check)
+ Tasks:    35 successful, 35 total
+ ✔ no dependency violations found (82 modules, 73 dependencies cruised)
+ boundary tests: # pass 11  # fail 0
+ ADR check:      # pass 21  # fail 0

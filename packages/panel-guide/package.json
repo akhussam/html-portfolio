@@ -1,0 +1,27 @@
+{
+  "name": "@platform/panel-guide",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Staff control panel: /guide",
+  "type": "module",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "exports": {
+    ".": "./src/index.tsx"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --passWithNoTests"
+  },
+  "peerDependencies": {
+    "react": "19.2.3"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.18",
+    "react": "19.2.3"
+  },
+  "dependencies": {
+    "@platform/ui": "workspace:*"
+  }
+}

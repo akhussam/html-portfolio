@@ -1,0 +1,137 @@
+$ pnpm turbo run lint --force
+
+   • turbo 2.11.7
+   • Packages in scope: @platform/api, @platform/contracts, @platform/learning-engine, @platform/panel-admin, @platform/panel-author, @platform/panel-guide, @platform/panel-ops, @platform/staff, @platform/student, @platform/ui
+   • Running lint in 10 packages
+   • Remote caching disabled
+
+@platform/panel-admin:lint: cache bypass, force executing 55e49afc86c958ab
+@platform/panel-ops:lint: cache bypass, force executing 32b9e4c1fb9436d4
+@platform/ui:lint: cache bypass, force executing 8ed41de3d119acfb
+@platform/learning-engine:lint: cache bypass, force executing f52f2530f573a22b
+@platform/api:lint: cache bypass, force executing 1c866db944ba3c13
+@platform/student:lint: cache bypass, force executing 0ac06ff6aa16e95b
+@platform/panel-guide:lint: cache bypass, force executing 9256deacb5c7230f
+@platform/contracts:lint: cache bypass, force executing c659bccbb29ee8ac
+@platform/staff:lint: cache bypass, force executing 15e9087047247add
+@platform/panel-author:lint: cache bypass, force executing 0635f9a65d7061bf
+@platform/learning-engine:lint: 
+@platform/learning-engine:lint: > @platform/learning-engine@0.0.0 lint /home/user/html-portfolio/services/learning-engine
+@platform/learning-engine:lint: > uv run --frozen ruff check . && uv run --frozen ruff format --check .
+@platform/learning-engine:lint: 
+@platform/learning-engine:lint: All checks passed!
+@platform/learning-engine:lint: 3 files already formatted
+@platform/staff:lint: 
+@platform/staff:lint: > @platform/staff@0.0.0 lint /home/user/html-portfolio/apps/staff
+@platform/staff:lint: > eslint .
+@platform/staff:lint: 
+@platform/panel-admin:lint: 
+@platform/panel-admin:lint: > @platform/panel-admin@0.0.0 lint /home/user/html-portfolio/packages/panel-admin
+@platform/panel-admin:lint: > eslint .
+@platform/panel-admin:lint: 
+@platform/student:lint: 
+@platform/student:lint: > @platform/student@0.0.0 lint /home/user/html-portfolio/apps/student
+@platform/student:lint: > eslint .
+@platform/student:lint: 
+@platform/panel-guide:lint: 
+@platform/panel-guide:lint: > @platform/panel-guide@0.0.0 lint /home/user/html-portfolio/packages/panel-guide
+@platform/panel-guide:lint: > eslint .
+@platform/panel-guide:lint: 
+@platform/api:lint: 
+@platform/api:lint: > @platform/api@0.0.0 lint /home/user/html-portfolio/services/api
+@platform/api:lint: > eslint .
+@platform/api:lint: 
+@platform/contracts:lint: 
+@platform/contracts:lint: > @platform/contracts@0.0.0 lint /home/user/html-portfolio/packages/contracts
+@platform/contracts:lint: > eslint .
+@platform/contracts:lint: 
+@platform/panel-author:lint: 
+@platform/panel-author:lint: > @platform/panel-author@0.0.0 lint /home/user/html-portfolio/packages/panel-author
+@platform/panel-author:lint: > eslint .
+@platform/panel-author:lint: 
+@platform/ui:lint: 
+@platform/ui:lint: > @platform/ui@0.0.0 lint /home/user/html-portfolio/packages/ui
+@platform/ui:lint: > eslint .
+@platform/ui:lint: 
+@platform/panel-ops:lint: 
+@platform/panel-ops:lint: > @platform/panel-ops@0.0.0 lint /home/user/html-portfolio/packages/panel-ops
+@platform/panel-ops:lint: > eslint .
+@platform/panel-ops:lint: 
+
+ Tasks:    10 successful, 10 total
+Cached:    0 cached, 10 total
+  Time:    4.697s 
+
+
+$ pnpm turbo run typecheck --force
+
+   • turbo 2.11.7
+   • Packages in scope: @platform/api, @platform/contracts, @platform/learning-engine, @platform/panel-admin, @platform/panel-author, @platform/panel-guide, @platform/panel-ops, @platform/staff, @platform/student, @platform/ui
+   • Running typecheck in 10 packages
+   • Remote caching disabled
+
+@platform/learning-engine:typecheck: cache bypass, force executing 75ed728902a83481
+@platform/ui:typecheck: cache bypass, force executing f6ecd24fa4f3485a
+@platform/contracts:typecheck: cache bypass, force executing 73d8081dff7f261a
+@platform/ui:typecheck: 
+@platform/ui:typecheck: > @platform/ui@0.0.0 typecheck /home/user/html-portfolio/packages/ui
+@platform/ui:typecheck: > tsc -p tsconfig.json
+@platform/ui:typecheck: 
+@platform/contracts:typecheck: 
+@platform/contracts:typecheck: > @platform/contracts@0.0.0 typecheck /home/user/html-portfolio/packages/contracts
+@platform/contracts:typecheck: > tsc -p tsconfig.json
+@platform/contracts:typecheck: 
+@platform/learning-engine:typecheck: 
+@platform/learning-engine:typecheck: > @platform/learning-engine@0.0.0 typecheck /home/user/html-portfolio/services/learning-engine
+@platform/learning-engine:typecheck: > uv run --frozen mypy src tests
+@platform/learning-engine:typecheck: 
+@platform/learning-engine:typecheck: Success: no issues found in 3 source files
+@platform/api:typecheck: cache bypass, force executing a6f6f213bcdca3cb
+@platform/panel-admin:typecheck: cache bypass, force executing c36a5ede42435cd9
+@platform/panel-ops:typecheck: cache bypass, force executing 18abbb91d8ba67e5
+@platform/panel-guide:typecheck: cache bypass, force executing d92588185fabd841
+@platform/panel-author:typecheck: cache bypass, force executing 9872965516863067
+@platform/student:typecheck: cache bypass, force executing 5f3cf0e07611d70d
+@platform/api:typecheck: 
+@platform/api:typecheck: > @platform/api@0.0.0 typecheck /home/user/html-portfolio/services/api
+@platform/api:typecheck: > tsc -p tsconfig.json
+@platform/api:typecheck: 
+@platform/student:typecheck: 
+@platform/student:typecheck: > @platform/student@0.0.0 typecheck /home/user/html-portfolio/apps/student
+@platform/student:typecheck: > tsc -p tsconfig.json
+@platform/student:typecheck: 
+@platform/panel-admin:typecheck: 
+@platform/panel-admin:typecheck: > @platform/panel-admin@0.0.0 typecheck /home/user/html-portfolio/packages/panel-admin
+@platform/panel-admin:typecheck: > tsc -p tsconfig.json
+@platform/panel-admin:typecheck: 
+@platform/panel-ops:typecheck: 
+@platform/panel-ops:typecheck: > @platform/panel-ops@0.0.0 typecheck /home/user/html-portfolio/packages/panel-ops
+@platform/panel-ops:typecheck: > tsc -p tsconfig.json
+@platform/panel-ops:typecheck: 
+@platform/panel-guide:typecheck: 
+@platform/panel-guide:typecheck: > @platform/panel-guide@0.0.0 typecheck /home/user/html-portfolio/packages/panel-guide
+@platform/panel-guide:typecheck: > tsc -p tsconfig.json
+@platform/panel-guide:typecheck: 
+@platform/panel-author:typecheck: 
+@platform/panel-author:typecheck: > @platform/panel-author@0.0.0 typecheck /home/user/html-portfolio/packages/panel-author
+@platform/panel-author:typecheck: > tsc -p tsconfig.json
+@platform/panel-author:typecheck: 
+@platform/staff:typecheck: cache bypass, force executing 253ac0169dc81651
+@platform/staff:typecheck: 
+@platform/staff:typecheck: > @platform/staff@0.0.0 typecheck /home/user/html-portfolio/apps/staff
+@platform/staff:typecheck: > tsc -p tsconfig.json
+@platform/staff:typecheck: 
+
+ Tasks:    10 successful, 10 total
+Cached:    0 cached, 10 total
+  Time:    7.962s 
+
+
+$ pnpm lint:boundaries
+
+> alpha-like-school-platform@ lint:boundaries /home/user/html-portfolio
+> depcruise apps services packages --config .dependency-cruiser.cjs
+
+
+✔ no dependency violations found (47 modules, 43 dependencies cruised)
+

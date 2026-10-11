@@ -1,0 +1,32 @@
+{
+  "name": "alpha-like-school-platform",
+  "private": true,
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "generate": "pnpm --filter @platform/contracts generate && pnpm --filter @platform/staff generate && services/learning-engine/generate.sh && pnpm --filter @platform/api db:generate",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "lint:boundaries": "depcruise apps services packages --config .dependency-cruiser.cjs",
+    "test:boundaries": "node --test tools/boundaries/boundaries.test.mjs",
+    "check": "turbo run lint typecheck test build && pnpm lint:boundaries && pnpm test:boundaries && pnpm test:adr",
+    "test:adr": "node --test tools/adr/adr.test.mjs",
+    "db:migrate": "pnpm --filter @platform/api db:migrate"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "@vitest/coverage-v8": "5.0.3",
+    "dependency-cruiser": "18.5.0",
+    "eslint": "10.12.0",
+    "globals": "17.13.0",
+    "turbo": "2.11.7",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.1",
+    "vitest": "5.0.3"
+  }
+}

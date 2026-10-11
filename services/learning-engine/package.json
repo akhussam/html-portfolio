@@ -1,0 +1,12 @@
+{
+  "name": "@platform/learning-engine",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Learning engine (Python FastAPI): BKT, RecommendNext, PlanDay. Scripts wrap uv so Turborepo runs it with the rest.",
+  "scripts": {
+    "build": "uv run --frozen python -m compileall -q src",
+    "lint": "uv run --frozen ruff check . && uv run --frozen ruff format --check .",
+    "typecheck": "uv run --frozen mypy src tests",
+    "test": "uv run --frozen pytest"
+  }
+}

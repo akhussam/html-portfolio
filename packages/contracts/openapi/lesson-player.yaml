@@ -1,0 +1,456 @@
+openapi: 3.1.0
+info:
+  title: Lesson Player API
+  version: 0.1.0
+  description: |
+    REST API used by the student app (apps/student). Served by services/api.
+    The tenant and the pseudonymous student ID come from the bearer JWT (ADR-002, ADR-006),
+    never from request parameters. Items are sent as PresentedItem (no answers; ADR-007).
+servers:
+  - url: /api/v1
+security:
+  - bearerAuth: []
+tags:
+  - name: content
+  - name: session
+  - name: assessment
+  - name: placement
+  - name: help
+paths:
+  /skills/{skillId}/prereqs:
+    get:
+      tags: [content]
+      operationId: getSkillPrereqs
+      summary: Prerequisite skills of a skill (step 1.1)
+      parameters:
+        - $ref: "#/components/parameters/SkillId"
+      responses:
+        "200":
+          description: Prerequisites, possibly empty
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Skill" }
+        "404": { $ref: "#/components/responses/NotFound" }
+  /lessons/{lessonId}:
+    get:
+      tags: [content]
+      operationId: getLesson
+      summary: A lesson (step 1.1)
+      parameters:
+        - name: lessonId
+          in: path
+          required: true
+          schema: { type: string, minLength: 1 }
+      responses:
+        "200":
+          description: The lesson
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Lesson" }
+        "404": { $ref: "#/components/responses/NotFound" }
+  /sessions:
+    post:
+      tags: [session]
+      operationId: startSession
+      summary: Start a practice session (step 1.5)
+      responses:
+        "201":
+          description: Session started
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Session" }
+  /sessions/{sessionId}/next:
+    get:
+      tags: [session]
+      operationId: getNext
+      summary: Next thing to do in this session (step 1.5; uses RecommendNext)
+      parameters:
+        - $ref: "#/components/parameters/SessionId"
+      responses:
+        "200":
+          description: Next step
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/NextStep" }
+        "404": { $ref: "#/components/responses/NotFound" }
+  /responses:
+    post:
+      tags: [assessment]
+      operationId: submitResponse
+      summary: Submit and score one response while online (step 1.3)
+      description: Idempotent on clientResponseId; a repeat returns the original result.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ResponseSubmission" }
+      responses:
+        "200":
+          description: Scored
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ScoredResponse" }
+        "422": { $ref: "#/components/responses/Invalid" }
+  /sync/outbox:
+    post:
+      tags: [session]
+      operationId: syncOutbox
+      summary: Upload responses queued while offline (step 1.5; ADR-003)
+      description: Idempotent per clientResponseId; duplicates are reported, not re-scored.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [responses]
+              additionalProperties: false
+              properties:
+                responses:
+                  type: array
+                  maxItems: 500
+                  items: { $ref: "#/components/schemas/ResponseSubmission" }
+      responses:
+        "200":
+          description: Sync result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SyncResult" }
+        "422": { $ref: "#/components/responses/Invalid" }
+  /skills/{skillId}/quiz:
+    post:
+      tags: [assessment]
+      operationId: startQuiz
+      summary: Start a mastery quiz for a skill (step 1.3)
+      parameters:
+        - $ref: "#/components/parameters/SkillId"
+      responses:
+        "201":
+          description: Quiz started
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Quiz" }
+  /quizzes/{quizId}/finish:
+    post:
+      tags: [assessment]
+      operationId: finishQuiz
+      summary: Finish a mastery quiz; passing (≥90%) unlocks next skills (step 1.3)
+      parameters:
+        - name: quizId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Quiz result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/QuizResult" }
+        "404": { $ref: "#/components/responses/NotFound" }
+  /placement/{subject}/start:
+    post:
+      tags: [placement]
+      operationId: startPlacement
+      summary: Start the fixed-form placement (seam; CAT later behind the same endpoints)
+      parameters:
+        - $ref: "#/components/parameters/Subject"
+      responses:
+        "201":
+          description: Placement started
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PlacementStep" }
+  /placement/{subject}/next:
+    post:
+      tags: [placement]
+      operationId: nextPlacement
+      summary: Answer the current placement item and get the next one
+      parameters:
+        - $ref: "#/components/parameters/Subject"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PlacementAnswer" }
+      responses:
+        "200":
+          description: Next placement step
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PlacementStep" }
+        "422": { $ref: "#/components/responses/Invalid" }
+  /placement/{subject}/finish:
+    post:
+      tags: [placement]
+      operationId: finishPlacement
+      summary: Finish placement; sets initial mastery per skill (step 2.2)
+      parameters:
+        - $ref: "#/components/parameters/Subject"
+      responses:
+        "200":
+          description: Placement result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PlacementResult" }
+  /help/{itemId}:
+    post:
+      tags: [help]
+      operationId: requestHelp
+      summary: Next help turn for an item (seam; tutor later behind the same endpoint)
+      description: Hint 1, then hint 2, then "raise hand" to the guide (plan §12).
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema: { type: string, minLength: 1 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sessionId]
+              additionalProperties: false
+              properties:
+                sessionId: { type: string, format: uuid }
+      responses:
+        "200":
+          description: A help turn
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HelpTurn" }
+        "404": { $ref: "#/components/responses/NotFound" }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    SkillId:
+      name: skillId
+      in: path
+      required: true
+      schema: { type: string, minLength: 1 }
+    SessionId:
+      name: sessionId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    Subject:
+      name: subject
+      in: path
+      required: true
+      schema: { type: string, enum: [math] }
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Invalid:
+      description: Request failed validation
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+  schemas:
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: string }
+        message: { type: string }
+    Skill:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: string }
+        name: { type: string }
+    Lesson:
+      type: object
+      required: [id, skillId, title, items]
+      properties:
+        id: { type: string }
+        skillId: { type: string }
+        title: { type: string }
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/PresentedItem" }
+    PresentedItem:
+      description: An item as shown to the student. Same shape as the item schema minus answers and hints.
+      type: object
+      required: [id, skillId, prompt, input]
+      properties:
+        id: { type: string }
+        skillId: { type: string }
+        prompt: { type: string }
+        input:
+          oneOf:
+            - type: object
+              required: [type, choices]
+              properties:
+                type: { const: multiple_choice }
+                choices:
+                  type: array
+                  items:
+                    type: object
+                    required: [id, text]
+                    properties:
+                      id: { type: string }
+                      text: { type: string }
+            - type: object
+              required: [type]
+              properties:
+                type: { const: numeric }
+            - type: object
+              required: [type]
+              properties:
+                type: { const: fraction }
+    Answer:
+      oneOf:
+        - type: object
+          required: [type, choiceId]
+          additionalProperties: false
+          properties:
+            type: { const: multiple_choice }
+            choiceId: { type: string }
+        - type: object
+          required: [type, value]
+          additionalProperties: false
+          properties:
+            type: { const: numeric }
+            value: { type: number }
+        - type: object
+          required: [type, numerator, denominator]
+          additionalProperties: false
+          properties:
+            type: { const: fraction }
+            numerator: { type: integer }
+            denominator: { type: integer, minimum: 1 }
+    Session:
+      type: object
+      required: [sessionId, startedAt]
+      properties:
+        sessionId: { type: string, format: uuid }
+        startedAt: { type: string, format: date-time }
+    NextStep:
+      oneOf:
+        - type: object
+          required: [kind, item]
+          properties:
+            kind: { const: practice }
+            item: { $ref: "#/components/schemas/PresentedItem" }
+        - type: object
+          required: [kind, skillId]
+          properties:
+            kind: { const: quiz }
+            skillId: { type: string }
+        - type: object
+          required: [kind]
+          properties:
+            kind: { const: done }
+    ResponseSubmission:
+      type: object
+      required: [clientResponseId, sessionId, itemId, answer, answeredAt, durationMs, hintsUsed]
+      additionalProperties: false
+      properties:
+        clientResponseId:
+          description: Generated on the device; idempotency key (ADR-003).
+          type: string
+          format: uuid
+        sessionId: { type: string, format: uuid }
+        itemId: { type: string }
+        quizId:
+          description: Set when the item is part of a mastery quiz.
+          type: string
+          format: uuid
+        answer: { $ref: "#/components/schemas/Answer" }
+        answeredAt: { type: string, format: date-time }
+        durationMs: { type: integer, minimum: 0 }
+        hintsUsed: { type: integer, minimum: 0, maximum: 2 }
+    ScoredResponse:
+      type: object
+      required: [clientResponseId, correct]
+      properties:
+        clientResponseId: { type: string, format: uuid }
+        correct: { type: boolean }
+    SyncResult:
+      type: object
+      required: [accepted, duplicates]
+      properties:
+        accepted:
+          description: clientResponseIds stored by this call
+          type: array
+          items: { type: string, format: uuid }
+        duplicates:
+          description: clientResponseIds already stored earlier (no-op)
+          type: array
+          items: { type: string, format: uuid }
+    Quiz:
+      type: object
+      required: [quizId, skillId, items]
+      properties:
+        quizId: { type: string, format: uuid }
+        skillId: { type: string }
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/PresentedItem" }
+    QuizResult:
+      type: object
+      required: [quizId, scorePct, passed, unlockedSkillIds]
+      properties:
+        quizId: { type: string, format: uuid }
+        scorePct: { type: number, minimum: 0, maximum: 100 }
+        passed:
+          description: True when scorePct ≥ 90.
+          type: boolean
+        unlockedSkillIds:
+          type: array
+          items: { type: string }
+    PlacementStep:
+      oneOf:
+        - type: object
+          required: [kind, item]
+          properties:
+            kind: { const: item }
+            item: { $ref: "#/components/schemas/PresentedItem" }
+        - type: object
+          required: [kind]
+          properties:
+            kind: { const: complete }
+    PlacementAnswer:
+      type: object
+      required: [itemId, answer, durationMs]
+      additionalProperties: false
+      properties:
+        itemId: { type: string }
+        answer: { $ref: "#/components/schemas/Answer" }
+        durationMs: { type: integer, minimum: 0 }
+    PlacementResult:
+      type: object
+      required: [skills]
+      properties:
+        skills:
+          type: array
+          items:
+            type: object
+            required: [skillId, pMastery]
+            properties:
+              skillId: { type: string }
+              pMastery: { type: number, minimum: 0, maximum: 1 }
+    HelpTurn:
+      oneOf:
+        - type: object
+          required: [kind, level, text]
+          properties:
+            kind: { const: hint }
+            level: { type: integer, enum: [1, 2] }
+            text: { type: string }
+        - type: object
+          required: [kind]
+          properties:
+            kind:
+              description: Both hints used; the guide is alerted.
+              const: raise_hand

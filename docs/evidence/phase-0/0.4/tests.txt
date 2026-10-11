@@ -1,0 +1,194 @@
+$ pnpm turbo run test --force
+
+   • turbo 2.11.7
+   • Packages in scope: @platform/api, @platform/contracts, @platform/learning-engine, @platform/panel-admin, @platform/panel-author, @platform/panel-guide, @platform/panel-ops, @platform/staff, @platform/student, @platform/ui
+   • Running test in 10 packages
+   • Remote caching disabled
+
+@platform/ui:test: cache bypass, force executing 5da39813af70c8a1
+@platform/learning-engine:test: cache bypass, force executing 81ce8919abb1831e
+@platform/contracts:test: cache bypass, force executing c39cb7fa84f90f43
+@platform/contracts:build: cache bypass, force executing d51e7a0e6136e70d
+@platform/panel-ops:test: cache bypass, force executing 6981f7cc1a806c31
+@platform/panel-admin:test: cache bypass, force executing 2d0a7dd54d5b3411
+@platform/panel-author:test: cache bypass, force executing c0eca66b64d493fe
+@platform/panel-guide:test: cache bypass, force executing 326bb5767c668346
+@platform/learning-engine:test: 
+@platform/learning-engine:test: > @platform/learning-engine@0.0.0 test /home/user/html-portfolio/services/learning-engine
+@platform/learning-engine:test: > uv run --frozen pytest
+@platform/learning-engine:test: 
+@platform/ui:test: 
+@platform/ui:test: > @platform/ui@0.0.0 test /home/user/html-portfolio/packages/ui
+@platform/ui:test: > vitest run --passWithNoTests
+@platform/ui:test: 
+@platform/contracts:test: 
+@platform/contracts:test: > @platform/contracts@0.0.0 test /home/user/html-portfolio/packages/contracts
+@platform/contracts:test: > vitest run
+@platform/contracts:test: 
+@platform/panel-ops:test: 
+@platform/panel-ops:test: > @platform/panel-ops@0.0.0 test /home/user/html-portfolio/packages/panel-ops
+@platform/panel-ops:test: > vitest run --passWithNoTests
+@platform/panel-ops:test: 
+@platform/learning-engine:test: warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+@platform/panel-admin:test: 
+@platform/panel-admin:test: > @platform/panel-admin@0.0.0 test /home/user/html-portfolio/packages/panel-admin
+@platform/panel-admin:test: > vitest run --passWithNoTests
+@platform/panel-admin:test: 
+@platform/panel-author:test: 
+@platform/panel-author:test: > @platform/panel-author@0.0.0 test /home/user/html-portfolio/packages/panel-author
+@platform/panel-author:test: > vitest run --passWithNoTests
+@platform/panel-author:test: 
+@platform/panel-guide:test: 
+@platform/panel-guide:test: > @platform/panel-guide@0.0.0 test /home/user/html-portfolio/packages/panel-guide
+@platform/panel-guide:test: > vitest run --passWithNoTests
+@platform/panel-guide:test: 
+@platform/contracts:build: 
+@platform/contracts:build: > @platform/contracts@0.0.0 build /home/user/html-portfolio/packages/contracts
+@platform/contracts:build: > tsc -p tsconfig.build.json
+@platform/contracts:build: 
+@platform/panel-author:test: 
+@platform/panel-author:test:  RUN  v5.0.3 /home/user/html-portfolio/packages/panel-author
+@platform/panel-author:test: 
+@platform/ui:test: 
+@platform/ui:test:  RUN  v5.0.3 /home/user/html-portfolio/packages/ui
+@platform/ui:test: 
+@platform/panel-guide:test: 
+@platform/panel-guide:test:  RUN  v5.0.3 /home/user/html-portfolio/packages/panel-guide
+@platform/panel-guide:test: 
+@platform/panel-ops:test: 
+@platform/panel-ops:test:  RUN  v5.0.3 /home/user/html-portfolio/packages/panel-ops
+@platform/panel-ops:test: 
+@platform/panel-admin:test: 
+@platform/panel-admin:test:  RUN  v5.0.3 /home/user/html-portfolio/packages/panel-admin
+@platform/panel-admin:test: 
+@platform/ui:test:  ✓ src/Placeholder.test.tsx (1 test) 13ms
+@platform/ui:test: 
+@platform/ui:test:  Test Files  1 passed (1)
+@platform/ui:test:       Tests  1 passed (1)
+@platform/ui:test:    Start at  10:14:39
+@platform/ui:test:    Duration  587ms (transform 49%, import 40%, tests 6%, worker 5%)
+@platform/ui:test: 
+@platform/contracts:test: 
+@platform/contracts:test:  RUN  v5.0.3 /home/user/html-portfolio/packages/contracts
+@platform/contracts:test: 
+@platform/panel-author:test:  ✓ src/index.test.tsx (1 test) 11ms
+@platform/panel-author:test: 
+@platform/panel-author:test:  Test Files  1 passed (1)
+@platform/panel-author:test:       Tests  1 passed (1)
+@platform/panel-author:test:    Start at  10:14:39
+@platform/panel-author:test:    Duration  842ms (transform 58%, import 34%, worker 4%, tests 3%)
+@platform/panel-author:test: 
+@platform/learning-engine:test: ============================= test session starts ==============================
+@platform/learning-engine:test: platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+@platform/learning-engine:test: rootdir: /home/user/html-portfolio/services/learning-engine
+@platform/learning-engine:test: configfile: pyproject.toml
+@platform/learning-engine:test: testpaths: tests
+@platform/learning-engine:test: plugins: anyio-4.15.1, cov-7.1.0
+@platform/learning-engine:test: collected 5 items
+@platform/learning-engine:test: 
+@platform/panel-guide:test:  ✓ src/index.test.tsx (1 test) 12ms
+@platform/panel-guide:test: 
+@platform/panel-guide:test:  Test Files  1 passed (1)
+@platform/panel-guide:test:       Tests  1 passed (1)
+@platform/panel-guide:test:    Start at  10:14:40
+@platform/panel-guide:test:    Duration  713ms (transform 72%, import 22%, tests 3%, worker 2%)
+@platform/panel-guide:test: 
+@platform/panel-ops:test:  ✓ src/index.test.tsx (1 test) 6ms
+@platform/panel-ops:test: 
+@platform/panel-ops:test:  Test Files  1 passed (1)
+@platform/panel-ops:test:       Tests  1 passed (1)
+@platform/panel-ops:test:    Start at  10:14:40
+@platform/panel-ops:test:    Duration  731ms (transform 59%, import 37%, worker 3%, tests 2%)
+@platform/panel-ops:test: 
+@platform/panel-admin:test:  ✓ src/index.test.tsx (1 test) 16ms
+@platform/panel-admin:test: 
+@platform/panel-admin:test:  Test Files  1 passed (1)
+@platform/panel-admin:test:       Tests  1 passed (1)
+@platform/panel-admin:test:    Start at  10:14:40
+@platform/panel-admin:test:    Duration  673ms (transform 50%, import 37%, tests 8%, worker 6%)
+@platform/panel-admin:test: 
+@platform/learning-engine:test: tests/test_engine_rpc.py ....                                            [ 80%]
+@platform/api:test: cache bypass, force executing e31b01bd244d412a
+@platform/student:test: cache bypass, force executing d9ab428b1e39199a
+@platform/staff:test: cache bypass, force executing 5a23204d2b15bfeb
+@platform/contracts:test:  ✓ test/graphql.test.ts (2 tests) 26ms
+@platform/learning-engine:test: tests/test_health.py .                                                   [100%]
+@platform/learning-engine:test: 
+@platform/learning-engine:test: =============================== warnings summary ===============================
+@platform/learning-engine:test: .venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+@platform/learning-engine:test:   /home/user/html-portfolio/services/learning-engine/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+@platform/learning-engine:test:     from starlette.testclient import TestClient as TestClient  # noqa
+@platform/learning-engine:test: 
+@platform/learning-engine:test: -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+@platform/learning-engine:test: ========================= 5 passed, 1 warning in 1.34s =========================
+@platform/contracts:test:  ✓ test/schemas.test.ts (28 tests) 38ms
+@platform/staff:test: 
+@platform/staff:test: > @platform/staff@0.0.0 test /home/user/html-portfolio/apps/staff
+@platform/staff:test: > vitest run --passWithNoTests
+@platform/staff:test: 
+@platform/contracts:test:  ✓ test/openapi.test.ts (6 tests) 423ms
+@platform/contracts:test:    ✓ lesson-player OpenAPI (6)
+@platform/contracts:test:      ✓ is a valid OpenAPI 3.1 document 416ms
+@platform/contracts:test:  ✓ test/engine.test.ts (3 tests) 12ms
+@platform/contracts:test: 
+@platform/contracts:test:  Test Files  4 passed (4)
+@platform/contracts:test:       Tests  39 passed (39)
+@platform/contracts:test:    Start at  10:14:40
+@platform/contracts:test:    Duration  1.18s (import 57%, tests 28%, transform 13%, worker 3%)
+@platform/contracts:test: 
+@platform/student:test: 
+@platform/student:test: > @platform/student@0.0.0 test /home/user/html-portfolio/apps/student
+@platform/student:test: > vitest run --passWithNoTests
+@platform/student:test: 
+@platform/api:test: 
+@platform/api:test: > @platform/api@0.0.0 test /home/user/html-portfolio/services/api
+@platform/api:test: > vitest run --passWithNoTests
+@platform/api:test: 
+@platform/staff:test: 
+@platform/staff:test:  RUN  v5.0.3 /home/user/html-portfolio/apps/staff
+@platform/staff:test: 
+@platform/student:test: 
+@platform/student:test:  RUN  v5.0.3 /home/user/html-portfolio/apps/student
+@platform/student:test: 
+@platform/api:test: 
+@platform/api:test:  RUN  v5.0.3 /home/user/html-portfolio/services/api
+@platform/api:test: 
+@platform/staff:test:  ✓ app/routes.test.ts (5 tests) 9ms
+@platform/staff:test:  ✓ lib/operations.test.ts (6 tests) 24ms
+@platform/staff:test: 
+@platform/staff:test:  Test Files  2 passed (2)
+@platform/staff:test:       Tests  11 passed (11)
+@platform/staff:test:    Start at  10:14:42
+@platform/staff:test:    Duration  486ms (transform 49%, import 39%, tests 8%, worker 3%)
+@platform/staff:test: 
+@platform/student:test:  ✓ app.test.ts (1 test) 9ms
+@platform/student:test:  ✓ src/api/client.test.ts (3 tests) 111ms
+@platform/student:test: 
+@platform/student:test:  Test Files  2 passed (2)
+@platform/student:test:       Tests  4 passed (4)
+@platform/student:test:    Start at  10:14:42
+@platform/student:test:    Duration  522ms (transform 38%, tests 35%, import 20%, worker 7%)
+@platform/student:test: 
+@platform/api:test:  ✓ src/app.module.test.ts (1 test) 182ms
+@platform/api:test:  ✓ src/engine/engine.interop.test.ts (3 tests) 651ms
+@platform/api:test: 
+@platform/api:test:  Test Files  2 passed (2)
+@platform/api:test:       Tests  4 passed (4)
+@platform/api:test:    Start at  10:14:42
+@platform/api:test:    Duration  1.32s (tests 44%, import 37%, transform 18%)
+@platform/api:test: 
+
+ Tasks:    11 successful, 11 total
+Cached:    0 cached, 11 total
+  Time:    5.662s 
+
+ WARNING  no output files found for task @platform/api#test. Please check your `outputs` key in `turbo.json`
+ WARNING  no output files found for task @platform/contracts#test. Please check your `outputs` key in `turbo.json`
+ WARNING  no output files found for task @platform/learning-engine#test. Please check your `outputs` key in `turbo.json`
+ WARNING  no output files found for task @platform/panel-admin#test. Please check your `outputs` key in `turbo.json`
+ WARNING  no output files found for task @platform/panel-author#test. Please check your `outputs` key in `turbo.json`
+ WARNING  no output files found for task @platform/panel-guide#test. Please check your `outputs` key in `turbo.json`
+ WARNING  no output files found for task @platform/panel-ops#test. Please check your `outputs` key in `turbo.json`
+ WARNING  no output files found for task @platform/staff#test. Please check your `outputs` key in `turbo.json`
+ WARNING  no output files found for task @platform/student#test. Please check your `outputs` key in `turbo.json`
+ WARNING  no output files found for task @platform/ui#test. Please check your `outputs` key in `turbo.json`

@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "Alpha-Like School",
+    "slug": "alpha-like-student",
+    "version": "0.0.0",
+    "platforms": ["web", "ios"],
+    "web": { "bundler": "metro", "output": "single" }
+  }
+}

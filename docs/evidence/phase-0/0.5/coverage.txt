@@ -1,0 +1,13 @@
+$ (services/api) vitest run --coverage --coverage.include='src/db/**' --coverage.include='src/platform/**' --coverage.include='src/modules/*/*.tables.ts'
+
+Local run (PGlite path):
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+All files          |   64.28 |       50 |   66.66 |   65.85 |
+  test-database.ts |      40 |       50 |   55.55 |   41.66 | 31-49
+(The table files and the platform tables are 100% covered and not listed by the reporter.)
+
+Lines 31-49 of src/db/test-database.ts are the real-Postgres path (create a uniquely named
+database, migrate, drop it). That path runs only when DATABASE_URL is set, which is always the
+case in CI (the helper refuses to run in CI without it). The PGlite path runs locally. Between
+the two runs every line is executed. No business logic is in this step: the migrations
+themselves are SQL, tested by the 16 behaviour checks in tests.txt.

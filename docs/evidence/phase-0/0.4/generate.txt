@@ -1,0 +1,32 @@
+$ pnpm generate   (run twice; output hashes identical, so CI can require no diff)
+
+> alpha-like-school-platform@ generate /home/user/html-portfolio
+> pnpm --filter @platform/contracts generate && pnpm --filter @platform/staff generate && services/learning-engine/generate.sh
+
+
+> @platform/contracts@0.0.0 generate /home/user/html-portfolio/packages/contracts
+> node scripts/generate.mjs
+
+✨ openapi-typescript 7.13.0
+🚀 openapi/lesson-player.yaml → src/gen/lesson-player.ts [83.1ms]
+
+> @platform/staff@0.0.0 generate /home/user/html-portfolio/apps/staff
+> graphql-codegen --config codegen.ts
+
+❯ Parse Configuration
+✔ Parse Configuration
+❯ Generate outputs
+❯ Generate to ./gql/
+❯ Load GraphQL schemas
+✔ Load GraphQL schemas
+❯ Load GraphQL documents
+✔ Load GraphQL documents
+❯ Generate
+✔ Generate
+✔ Generate to ./gql/
+✔ Generate outputs
+warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
+
+$ git status --porcelain -- packages/contracts/src/gen apps/staff/gql services/learning-engine/src/engine
+?? services/learning-engine/src/engine/
+(untracked = newly generated in this step; committed with it)

@@ -1,0 +1,6 @@
+# SOPS encrypts environment files for the repo with age (plan step 0.6: secrets with SOPS).
+# Replace the placeholder with your age public key (age-keygen prints it as "Public key: age1...").
+# Keep the private key OFF the repo: on your PC and on the server at ~/.config/sops/age/keys.txt.
+creation_rules:
+  - path_regex: infra/compose/env/.*\.env$
+    age: REPLACE_WITH_YOUR_AGE_PUBLIC_KEY
