@@ -1,6 +1,6 @@
-from engine.v1.engine_connect import LearningEngineServiceASGIApplication
 from fastapi import FastAPI
 
+from engine.v1.engine_connect import LearningEngineServiceASGIApplication
 from learning_engine.service import LearningEngine
 
 app = FastAPI(title="learning-engine")

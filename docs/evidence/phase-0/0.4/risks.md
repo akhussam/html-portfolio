@@ -8,3 +8,4 @@
 | dependency-cruiser doesn't follow imports into `packages/contracts/dist` (excluded). The contracts source is still checked by `contracts-standalone` | Revisit if packages start importing each other's builds |
 | `trace.json` N/A (OTel arrives in 0.7); `deploy.txt` N/A (no staging until 0.6–0.7) | Steps 0.6–0.7 |
 | Item schema fields may change once the content reviewer starts (week 6) | Additive changes only, per ADR-007 |
+| First CI run failed: the engine could not import generated code from `gen/` when started by uvicorn in CI (pytest worked through its own `pythonpath`). It wasn't reproducible locally. Fixed by generating into `src/engine/`, which is on the path the same way as `learning_engine` | Done (this step) |

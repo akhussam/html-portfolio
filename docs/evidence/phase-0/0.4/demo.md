@@ -5,7 +5,7 @@
 |---|---|---|---|
 | Lesson-player REST (OpenAPI 3.1) | `openapi/lesson-player.yaml` | `src/gen/lesson-player.ts` → `openapi-fetch` client in `apps/student/src/api/client.ts` | student app |
 | Panels GraphQL | `graphql/schema.graphql` | `apps/staff/gql/` (graphql-codegen client preset) for the operations in `apps/staff/lib/operations.ts` | staff app |
-| Learning engine (Connect-RPC) | `proto/engine/v1/engine.proto` | TS: `src/gen/engine/v1/engine_pb.ts` → client in `services/api/src/engine/engine.client.ts`. Python: `services/learning-engine/gen/engine/v1/` (server + client) | API → engine |
+| Learning engine (Connect-RPC) | `proto/engine/v1/engine.proto` | TS: `src/gen/engine/v1/engine_pb.ts` → client in `services/api/src/engine/engine.client.ts`. Python: `services/learning-engine/src/engine/v1/` (server + client) | API → engine |
 | Events (JSON Schema 2020-12) | `events/{response.scored,session.started,session.ended,skill.mastered}.schema.json` + `envelope.schema.json` | `src/gen/schemas.types.ts` (types), `src/gen/schemas.ts` (schemas for runtime validation) | API (EventPublisher, step 0.5+) |
 | Item (JSON Schema, ADR-007) | `schemas/item.schema.json` | same as events | content module (1.1) |
 

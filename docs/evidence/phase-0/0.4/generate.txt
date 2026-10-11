@@ -8,7 +8,7 @@ $ pnpm generate   (run twice; output hashes identical, so CI can require no diff
 > node scripts/generate.mjs
 
 ✨ openapi-typescript 7.13.0
-🚀 openapi/lesson-player.yaml → src/gen/lesson-player.ts [89.2ms]
+🚀 openapi/lesson-player.yaml → src/gen/lesson-player.ts [83.1ms]
 
 > @platform/staff@0.0.0 generate /home/user/html-portfolio/apps/staff
 > graphql-codegen --config codegen.ts
@@ -27,8 +27,6 @@ $ pnpm generate   (run twice; output hashes identical, so CI can require no diff
 ✔ Generate outputs
 warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.
 
-$ git status --porcelain -- packages/contracts/src/gen apps/staff/gql services/learning-engine/gen
-?? apps/staff/gql/
-?? packages/contracts/src/gen/
-?? services/learning-engine/gen/
+$ git status --porcelain -- packages/contracts/src/gen apps/staff/gql services/learning-engine/src/engine
+?? services/learning-engine/src/engine/
 (untracked = newly generated in this step; committed with it)

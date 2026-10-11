@@ -11,12 +11,12 @@ import uvicorn
 from connectrpc.code import Code
 from connectrpc.errors import ConnectError
 from connectrpc.request import RequestContext
+
 from engine.v1 import engine_pb2
 from engine.v1.engine_connect import (
     LearningEngineServiceASGIApplication,
     LearningEngineServiceClientSync,
 )
-
 from learning_engine.main import app
 
 

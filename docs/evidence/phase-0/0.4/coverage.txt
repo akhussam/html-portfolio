@@ -18,7 +18,7 @@ Statements   : 100% ( 22/22 )
 Branches     : 100% ( 0/0 )
 Functions    : 100% ( 2/2 )
 Lines        : 100% ( 22/22 )
-=== services/learning-engine: pytest --cov (gen/ excluded)
+=== services/learning-engine: pytest --cov=learning_engine (generated src/engine excluded)
 Name                              Stmts   Miss  Cover
 src/learning_engine/__init__.py       0      0   100%
 src/learning_engine/main.py           9      0   100%
