@@ -1,6 +1,6 @@
 # Pilot Brief — Alpha-Like School Platform
 
-**Step 0.1 · Draft v0.2 · 2026-10-11 · Status: awaiting written confirmation from @Hussam and the pilot school**
+**Step 0.1 · v1.0 · 2026-10-11 · Status: approved by @Hussam; school's written agreement to follow**
 
 > Done when (plan §5): *"Pilot school agrees in writing."*
 > Fields marked **TBC** are still open. Nothing here was invented; defaults come from `docs/BUILD_PLAN.md`.
@@ -65,5 +65,5 @@ The plan's week numbers are estimates only. Two things stay fixed: steps run one
 ## 9. Sign-off
 | Party | Name | Agreement (written) | Date |
 |---|---|---|---|
-| Project owner | @Hussam | ☐ | |
-| Pilot school | Omar Academy — TBC | ☐ | |
+| Project owner | @Hussam | ☑ "Approved" (in session) | 2026-10-11 |
+| Pilot school | Omar Academy — TBC | ☐ pending (follow-up; required before Gate 0) | |
