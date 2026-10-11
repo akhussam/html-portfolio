@@ -1,6 +1,10 @@
+import { join } from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Self-contained server for the Docker image (infra/compose); traced from the monorepo root.
+  output: "standalone",
+  outputFileTracingRoot: join(import.meta.dirname, "..", ".."),
   // Workspace packages ship TypeScript source; Next compiles them.
   transpilePackages: [
     "@platform/ui",

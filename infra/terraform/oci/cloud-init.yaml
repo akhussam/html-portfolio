@@ -1,0 +1,21 @@
+#cloud-config
+# First boot of the server: Docker Engine + Compose plugin, SOPS and age for secrets,
+# unattended security updates. The platform itself is started by hand (docs/runbook/hosting.md).
+package_update: true
+package_upgrade: true
+packages:
+  - ca-certificates
+  - curl
+  - git
+  - age
+  - unattended-upgrades
+runcmd:
+  - curl -fsSL https://get.docker.com | sh
+  - usermod -aG docker ubuntu
+  - systemctl enable --now docker
+  # Latest SOPS release for arm64 (the runbook verifies `sops --version` after first boot).
+  - >-
+    v=$(curl -fsSL https://api.github.com/repos/getsops/sops/releases/latest | grep -m1 '"tag_name"' | cut -d'"' -f4)
+    && curl -fsSL -o /usr/local/bin/sops "https://github.com/getsops/sops/releases/download/$v/sops-$v.linux.arm64"
+    && chmod +x /usr/local/bin/sops
+  - dpkg-reconfigure -f noninteractive unattended-upgrades

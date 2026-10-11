@@ -1,0 +1,103 @@
+# The whole platform on one host (hosting seam: one VM or one PC, Docker Compose).
+# Staging and prod are separate Compose projects from this one file:
+#   docker compose -f infra/compose/compose.yaml -p platform-staging --env-file infra/compose/env/staging.env up -d --build --wait
+#   docker compose -f infra/compose/compose.yaml -p platform-prod    --env-file infra/compose/env/prod.env    up -d --wait
+# See docs/runbook/hosting.md.
+
+name: platform
+
+x-restart: &restart
+  restart: unless-stopped
+
+services:
+  postgres:
+    <<: *restart
+    # Same major version as the RDS target (ADR-010).
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: platform
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in the env file}
+      POSTGRES_DB: platform
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U platform -d platform"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # One-shot: applies services/api/migrations, then exits. The API waits for it.
+  migrate:
+    image: ${REGISTRY:-platform}/api:${TAG:-local}
+    build:
+      context: ../..
+      dockerfile: services/api/Dockerfile
+    command: ["node", "dist/db/migrate.js"]
+    environment:
+      DATABASE_URL: postgres://platform:${POSTGRES_PASSWORD}@postgres:5432/platform
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  engine:
+    <<: *restart
+    image: ${REGISTRY:-platform}/engine:${TAG:-local}
+    build:
+      context: ../../services/learning-engine
+
+  api:
+    <<: *restart
+    image: ${REGISTRY:-platform}/api:${TAG:-local}
+    build:
+      context: ../..
+      dockerfile: services/api/Dockerfile
+    environment:
+      PORT: "3001"
+      DATABASE_URL: postgres://platform:${POSTGRES_PASSWORD}@postgres:5432/platform
+      ENGINE_URL: http://engine:8000
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      engine:
+        condition: service_healthy
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${API_PORT:-3001}:3001"
+
+  staff:
+    <<: *restart
+    image: ${REGISTRY:-platform}/staff:${TAG:-local}
+    build:
+      context: ../..
+      dockerfile: apps/staff/Dockerfile
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${STAFF_PORT:-3000}:3000"
+
+  student:
+    <<: *restart
+    image: ${REGISTRY:-platform}/student:${TAG:-local}
+    build:
+      context: ../..
+      dockerfile: apps/student/Dockerfile
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${STUDENT_PORT:-8080}:80"
+
+  # Public access through Cloudflare Tunnel (no inbound ports on the host). Enabled with
+  # `--profile tunnel`; the tunnel's routes are set in the Cloudflare dashboard.
+  cloudflared:
+    <<: *restart
+    profiles: ["tunnel"]
+    image: cloudflare/cloudflared:${CLOUDFLARED_VERSION:-latest}
+    command: ["tunnel", "--no-autoupdate", "run"]
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:-}
+    depends_on:
+      - staff
+      - student
+      - api
+
+volumes:
+  pgdata:

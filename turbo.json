@@ -30,6 +30,12 @@
       "outputs": [
         "coverage/**"
       ]
+    },
+    "@platform/staff#typecheck": {
+      "dependsOn": [
+        "^build",
+        "@platform/staff#build"
+      ]
     }
   }
 }

@@ -3,9 +3,8 @@ import { join } from "node:path";
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle as drizzlePglite } from "drizzle-orm/pglite";
 import { migrate as migratePglite } from "drizzle-orm/pglite/migrator";
-import { drizzle as drizzlePg } from "drizzle-orm/node-postgres";
-import { migrate as migratePg } from "drizzle-orm/node-postgres/migrator";
 import pg from "pg";
+import { runMigrations } from "./migrate.js";
 
 export const MIGRATIONS_FOLDER = join(import.meta.dirname, "..", "..", "migrations");
 
@@ -41,7 +40,8 @@ async function createPostgresDatabase(url: string): Promise<TestDatabase> {
   const pool = new pg.Pool({ connectionString: testUrl.toString(), max: 2 });
   return {
     engine: "postgres",
-    migrate: () => migratePg(drizzlePg(pool), { migrationsFolder: MIGRATIONS_FOLDER, migrationsSchema: "drizzle" }),
+    // The production migrate script, so CI tests exactly what the migrate container runs.
+    migrate: () => runMigrations(testUrl.toString(), MIGRATIONS_FOLDER),
     query: async <T>(sql: string, params?: unknown[]) => (await pool.query(sql, params)).rows as T[],
     async close() {
       await pool.end();

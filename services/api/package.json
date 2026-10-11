@@ -4,13 +4,14 @@
   "private": true,
   "description": "API (NestJS modular monolith): one folder per module under src/modules",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "start": "node dist/main.js",
     "lint": "eslint .",
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run --passWithNoTests",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "start:migrate": "node dist/db/migrate.js"
   },
   "dependencies": {
     "@connectrpc/connect": "2.2.0",
@@ -30,5 +31,9 @@
     "@types/pg": "8.23.1",
     "drizzle-kit": "0.31.11"
   },
-  "type": "module"
+  "type": "module",
+  "files": [
+    "dist",
+    "migrations"
+  ]
 }

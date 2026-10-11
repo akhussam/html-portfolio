@@ -79,3 +79,34 @@ jobs:
 
       - name: ADRs are consistent
         run: pnpm test:adr
+
+  stack:
+    name: Docker images + Compose smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Validate the Compose file
+        run: docker compose -f infra/compose/compose.yaml --env-file infra/compose/env/ci.env --profile tunnel config -q
+
+      - name: Build all images, start the stack from nothing, check every service
+        run: infra/compose/smoke-test.sh
+
+  terraform:
+    name: Terraform (OCI) validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: infra/terraform/oci
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - run: terraform fmt -check -recursive
+
+      - run: terraform init -backend=false -input=false
+
+      - run: terraform validate
