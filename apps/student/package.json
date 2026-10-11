@@ -1,0 +1,29 @@
+{
+  "name": "@platform/student",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Student app (Expo + React Native Web); runs in the browser for the pilot",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "expo start --web",
+    "build": "expo export --platform web --output-dir dist",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~57.0.16",
+    "@platform/contracts": "workspace:*",
+    "@platform/ui": "workspace:*",
+    "expo": "57.0.27",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-web": "~0.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/react": "19.2.18"
+  }
+}

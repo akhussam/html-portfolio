@@ -1,0 +1,54 @@
+=== packages/contracts: vitest run --coverage
+Statements   : 100% ( 1/1 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 0/0 )
+Lines        : 100% ( 1/1 )
+=== packages/ui: vitest run --coverage
+Statements   : 100% ( 1/1 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 1/1 )
+Lines        : 100% ( 1/1 )
+=== packages/panel-guide: vitest run --coverage
+Statements   : 100% ( 1/1 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 1/1 )
+Lines        : 100% ( 1/1 )
+=== packages/panel-admin: vitest run --coverage
+Statements   : 100% ( 1/1 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 1/1 )
+Lines        : 100% ( 1/1 )
+=== packages/panel-author: vitest run --coverage
+Statements   : 100% ( 1/1 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 1/1 )
+Lines        : 100% ( 1/1 )
+=== packages/panel-ops: vitest run --coverage
+Statements   : 100% ( 1/1 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 1/1 )
+Lines        : 100% ( 1/1 )
+=== apps/staff: vitest run --coverage
+Statements   : Unknown% ( 0/0 )
+Branches     : Unknown% ( 0/0 )
+Functions    : Unknown% ( 0/0 )
+Lines        : Unknown% ( 0/0 )
+=== apps/student: vitest run --coverage
+Statements   : Unknown% ( 0/0 )
+Branches     : Unknown% ( 0/0 )
+Functions    : Unknown% ( 0/0 )
+Lines        : Unknown% ( 0/0 )
+=== services/api: vitest run --coverage
+Statements   : 100% ( 21/21 )
+Branches     : 100% ( 0/0 )
+Functions    : 100% ( 1/1 )
+Lines        : 100% ( 21/21 )
+=== services/learning-engine: pytest --cov
+
+Name                              Stmts   Miss  Cover
+-----------------------------------------------------
+src/learning_engine/__init__.py       0      0   100%
+src/learning_engine/main.py           5      0   100%
+-----------------------------------------------------
+TOTAL                                 5      0   100%
+========================= 1 passed, 1 warning in 0.95s =========================

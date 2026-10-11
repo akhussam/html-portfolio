@@ -1,0 +1,73 @@
+$ pnpm turbo run build --force
+
+   • turbo 2.11.7
+   • Packages in scope: @platform/api, @platform/contracts, @platform/learning-engine, @platform/panel-admin, @platform/panel-author, @platform/panel-guide, @platform/panel-ops, @platform/staff, @platform/student, @platform/ui
+   • Running build in 10 packages
+   • Remote caching disabled
+
+@platform/api:build: cache bypass, force executing e2fc4269295f98ce
+@platform/student:build: cache bypass, force executing d4230bf2b127d5d7
+@platform/staff:build: cache bypass, force executing bebf674f72629404
+@platform/learning-engine:build: cache bypass, force executing a2578982a0324775
+@platform/learning-engine:build: 
+@platform/learning-engine:build: > @platform/learning-engine@0.0.0 build /home/user/html-portfolio/services/learning-engine
+@platform/learning-engine:build: > uv run --frozen python -m compileall -q src
+@platform/learning-engine:build: 
+@platform/api:build: 
+@platform/api:build: > @platform/api@0.0.0 build /home/user/html-portfolio/services/api
+@platform/api:build: > tsc -p tsconfig.build.json
+@platform/api:build: 
+@platform/staff:build: 
+@platform/staff:build: > @platform/staff@0.0.0 build /home/user/html-portfolio/apps/staff
+@platform/staff:build: > next build
+@platform/staff:build: 
+@platform/student:build: 
+@platform/student:build: > @platform/student@0.0.0 build /home/user/html-portfolio/apps/student
+@platform/student:build: > expo export --platform web --output-dir dist
+@platform/student:build: 
+@platform/staff:build: ▲ Next.js 16.4.0 (Turbopack)
+@platform/staff:build: ✓ Running next.config.ts took 37ms
+@platform/staff:build: 
+@platform/staff:build:   Creating an optimized production build ...
+@platform/student:build: Expo Autolinking module resolution enabled
+@platform/student:build: Starting Metro Bundler
+@platform/student:build: 
+@platform/student:build: Web Bundled 357ms apps/student/index.ts (180 modules)
+@platform/student:build: 
+@platform/student:build: › web bundles (1):
+@platform/student:build: _expo/static/js/web/index-3b1284ea5c686a48e25d9365588159ab.js (332KB)
+@platform/student:build: 
+@platform/student:build: › Files (2):
+@platform/student:build: index.html (1.2KB)
+@platform/student:build: metadata.json (49B)
+@platform/student:build: 
+@platform/student:build: Exported: dist
+@platform/staff:build: ✓ Compiled successfully in 4.3s
+@platform/staff:build:   Running TypeScript ...
+@platform/staff:build:   Finished TypeScript in 2.1s ...
+@platform/staff:build:   Collecting page data using 3 workers ...
+@platform/staff:build:   Generating static pages using 3 workers (0/8) ...
+@platform/staff:build:   Generating static pages using 3 workers (2/8) 
+@platform/staff:build:   Generating static pages using 3 workers (4/8) 
+@platform/staff:build:   Generating static pages using 3 workers (6/8) 
+@platform/staff:build: ✓ Generating static pages using 3 workers (8/8) in 245ms
+@platform/staff:build:   Finalizing page optimization ...
+@platform/staff:build: 
+@platform/staff:build: Route (app)
+@platform/staff:build: ┌ ○ /
+@platform/staff:build: ├ ○ /_not-found
+@platform/staff:build: ├ ○ /admin
+@platform/staff:build: ├ ○ /author
+@platform/staff:build: ├ ○ /guide
+@platform/staff:build: ├ ○ /ops
+@platform/staff:build: └ ○ /parent
+@platform/staff:build: 
+@platform/staff:build: 
+@platform/staff:build: ○  (Static)  prerendered as static content
+@platform/staff:build: 
+
+ Tasks:    4 successful, 4 total
+Cached:    0 cached, 4 total
+  Time:    9.414s 
+
+ WARNING  no output files found for task @platform/learning-engine#build. Please check your `outputs` key in `turbo.json`
