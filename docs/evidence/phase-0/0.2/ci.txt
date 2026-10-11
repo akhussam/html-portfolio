@@ -1,0 +1,26 @@
+GitHub Actions — workflow "CI" (.github/workflows/ci.yml)
+
+Run 1: https://github.com/akhussam/html-portfolio/actions/runs/38129896041  (commit 677f023)
+  Conclusion: failure
+  All check steps passed (Install, Lint, Typecheck, Test, Build, Boundary lint,
+  Boundary rules block violations). Only the "Post Run astral-sh/setup-uv" cleanup failed:
+    ##[error]Cache path /home/runner/work/_temp/setup-uv-cache does not exist on disk.
+  Root cause: Turborepo strict env mode hid UV_CACHE_DIR from tasks, so uv cached elsewhere.
+  Fix (commit 02b15c2): turbo.json globalPassThroughEnv ["UV_*"]; actions moved to Node 24 majors.
+
+Run 2: https://github.com/akhussam/html-portfolio/actions/runs/38129979631  (commit 02b15c2)
+  Conclusion: success  (2026-10-11T09:53:34Z → 09:54:50Z)
+   1 Set up job                         success
+   2 Run actions/checkout@v7            success
+   3 Run pnpm/action-setup@v6           success
+   4 Run actions/setup-node@v7          success
+   5 Run astral-sh/setup-uv@v7          success
+   6 Install                            success
+   7 Lint                               success
+   8 Typecheck                          success
+   9 Test                               success
+  10 Build                              success
+  11 Boundary lint                      success
+  12 Boundary rules block violations    success
+  21 Post Run astral-sh/setup-uv@v7     success
+  25 Complete job                       success

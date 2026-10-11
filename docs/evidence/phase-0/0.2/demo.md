@@ -41,4 +41,4 @@ The same import through identity's public `index.ts` passes.
 | no-circular | dependency cycles |
 
 ## 4. CI
-`.github/workflows/ci.yml` runs install → lint → typecheck → test → build → boundary lint → boundary tests on every push to `main`/`claude/**` and on PRs. The CI run for this commit is linked in the session report.
+`.github/workflows/ci.yml` runs install → lint → typecheck → test → build → boundary lint → boundary tests on every push to `main`/`claude/**` and on PRs. Green run: https://github.com/akhussam/html-portfolio/actions/runs/38129979631 (details in `ci.txt`).
