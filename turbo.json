@@ -1,6 +1,9 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "agentGuidance": false,
+  "globalPassThroughEnv": [
+    "UV_*"
+  ],
   "tasks": {
     "build": {
       "dependsOn": [
