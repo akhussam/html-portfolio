@@ -2,10 +2,9 @@
 
 | Risk | Trigger / when to resolve |
 |---|---|
-| No Oracle Cloud region in Syria; plan §5 step 0.6 asks for "a region in the pilot's country" | Decide the nearest acceptable region in step 0.6; record it in an ADR |
-| Free-tier services (Oracle, Cloudflare, WorkOS, Resend/Brevo, Sanity, Grafana, Sentry, GitHub) may restrict accounts or users in Syria | Check each provider's terms and sign-up before step 0.6; swap a provider behind its seam interface if one is blocked |
-| App language undecided (Q1); Arabic would bring RTL + content translation into pilot scope | Answer before step 0.8 (design tokens) and step 2.1 (content) |
-| Ramadan 2027 (~Feb–Mar) overlaps the proposed pilot start | Confirm the start date (Q3) |
-| Unreliable connectivity/power could stress the offline outbox | Capture conditions (Q5) before step 1.5 |
+| Hosting region: Oracle Cloud has Saudi regions (Jeddah, Riyadh), but Arm always-free capacity there may be unavailable | Pick and claim the region in step 0.6; fall back to the nearest region with capacity and record it in an ADR |
+| Free-tier services must accept the account owner's location | Check sign-up for each provider before step 0.6; swap a provider behind its seam interface if one is blocked |
+| Devices undecided (iPad vs Chromebook) | Answer before step 1.2 |
+| PDPL deferred (D2) | Revisit before the pilot goes live with real student data, or at Gate 2 |
 
 Other bundle files (tests, coverage, trace, lint, deploy) are N/A: this is a documents-only step with no code.
